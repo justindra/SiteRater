@@ -29,6 +29,7 @@
 
 
 <template name="website_form">
+	{{#if currentUser}}
 	<a class="btn btn-default js-toggle-website-form" href="#">
   		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 	</a>
@@ -36,7 +37,7 @@
 		<form class="js-save-website-form">
 		  <div class="form-group">
 		    <label for="url">Site address</label>
-		    <input type="text" class="form-control" id="url" placeholder="http://www.mysite.com">
+		    <input type="url" class="form-control" id="url" placeholder="http://www.mysite.com" required>
 		  </div>
 		  <div class="form-group">
 		    <label for="title">Title</label>
@@ -44,12 +45,15 @@
 		  </div>
 		    <div class="form-group">
 		    <label for="description">Description</label>
-		    <input type="text" class="form-control" id="description" placeholder="I found this site really useful for ...">
+		    <input type="text" class="form-control" id="description" placeholder="I found this site really useful for ..." required>
 		  </div>
 
 		  <button type="submit" class="btn btn-default">Submit</button>
 		</form>
 	</div>
+	{{else}}
+		<p>Please sign in to add new websites and to both upvote and downvote.</p>
+	{{/if}}
 </template>
 
 <!-- template that displays several website items -->
@@ -64,16 +68,19 @@
 <!-- template that displays individual website entries -->
 <template name="website_item">
 <li>
-	<a href="{{url}}">{{votes}} {{title}}</a>
+	<a href="{{url}}">{{#if title}}{{title}}{{else}}{{url}}{{/if}}</a>
 	<p>
 		{{description}}
 	</p>
+	<p>Votes: {{votes}}, website added on: {{createdOn}}</p>
+	{{#if currentUser}}
 	<a href="#" class="btn btn-default js-upvote">
 		<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
 	</a>
 	<a href="#" class="btn btn-default js-downvote">
 		<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
 	</a>
+	{{/if}}
 	<!-- you will be putting your up and down vote buttons in here! -->
 </li>
 </template>

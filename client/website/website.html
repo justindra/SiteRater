@@ -1,0 +1,28 @@
+<template name="website">
+	{{#unless currentUser}}
+		<p>Please sign in to rate this link and comment on it too.</p>
+	{{/unless}}
+	<a href="{{website.url}}">{{#if website.title}}{{website.title}}{{else}}{{website.url}}{{/if}}</a>
+	<p>{{website.description}}</p>
+	<p>Votes: {{website.votes}}, website added on: {{website.createdOn}}</p>
+	<a href="#" class="btn btn-default js-details">
+		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+	</a>
+	{{#if currentUser}}
+	<a href="#" class="btn btn-default js-upvote">
+		<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+	</a>
+	<a href="#" class="btn btn-default js-downvote">
+		<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+	</a>
+	{{/if}}
+	<p>Comments:</p>
+	<ul>
+	{{#each website.comments}}
+		<li>{{comment}} by {{getName userId}}</li>
+	{{/each}}
+	{{#if currentUser}}
+		<li data-id="{{website._id}}"><input type="text"><a href="" data-action="add-comment">Add a comment</a></li>
+	{{/if}}
+	</ul>	
+</template>

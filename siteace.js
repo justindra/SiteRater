@@ -36,18 +36,16 @@ if (Meteor.isClient) {
 			$("#website_form").toggle('slow');
 		}, 
 		"submit .js-save-website-form":function(event){
+            event.preventDefault();
 			//  Save website data
-            Websites.insert({
+            var options = {
                 url: event.target.url.value,
                 title: event.target.title.value,
-                description: event.target.description.value,
-                createdOn: new Date()
-            }, function (err, result) {
+                description: event.target.description.value
+            };
+            Meteor.call('addNewWebsiteLink', options, function (err) {
                 if(err) console.log(err);
             });
-
-			return false;// stop the form submit from reloading the page
-
 		}
 	});
 }

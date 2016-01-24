@@ -24,3 +24,6 @@ accounts-ui
 kadira:flow-router
 kadira:blaze-layout
 check
+http
+
+alethes:lodash
